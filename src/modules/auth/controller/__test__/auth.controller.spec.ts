@@ -110,5 +110,22 @@ describe('AuthController', () => {
           expect(body.message).toEqual('The given credentials are invalid');
         });
     });
+
+    it('Should return an error if trying to login with an incorrect password', async () => {
+      jest.spyOn(bcrypt, 'compare').mockResolvedValue(false as never);
+
+      const loginUserDto: LoginUserDto = {
+        email: 'existing@example.com',
+        password: 'incorrect-password',
+      };
+
+      return request(app.getHttpServer())
+        .post('/auth/login')
+        .send(loginUserDto)
+        .expect(HttpStatus.BAD_REQUEST)
+        .then(({ body }) => {
+          expect(body.message).toEqual('The given credentials are invalid');
+        });
+    });
   });
 });
