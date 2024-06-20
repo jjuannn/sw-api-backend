@@ -1,10 +1,31 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { datasourceOptions } from './config/db.config';
+import { DataSource } from 'typeorm';
+import { UserModule } from './modules/user/user.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    JwtModule.register({
+      global: true,
+      secret: process.env.JWT_SECRET,
+    }),
+    TypeOrmModule.forRootAsync({
+      useFactory: () => ({
+        ...datasourceOptions,
+        autoLoadEntities: true,
+      }),
+      dataSourceFactory: async (options) => {
+        return new DataSource(options).initialize();
+      },
+    }),
+    AuthModule,
+    UserModule,
+  ],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

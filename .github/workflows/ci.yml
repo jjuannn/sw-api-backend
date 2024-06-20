@@ -1,0 +1,35 @@
+name: SW API Workflow
+
+on:
+  push:
+    branches: ['main']
+  pull_request:
+    branches: ['*']
+
+env:
+  JWT_SECRET: secret
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: NPM or Yarn install with caching
+        uses: bahmutov/npm-install@v1.6.0
+
+      - name: Build
+        run: npm run build
+
+      - name: Run Tests
+        run: npm run test:coverage
+
+      - name: Report LCOV
+        uses: zgosalvez/github-actions-report-lcov@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          coverage-files: ./coverage/lcov.info
