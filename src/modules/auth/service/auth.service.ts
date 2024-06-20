@@ -27,12 +27,15 @@ export class AuthService implements IAuthService {
     const { email, password } = registerUserDto;
 
     const storedUser = await this.userService.getByEmail(email);
-
     if (storedUser) {
       throw new UserAlreadyExistsError();
     }
 
-    const userCreated = await this.userService.create({ email, password });
+    const encryptedPassword = await this.encryptService.encrypt(password);
+    const userCreated = await this.userService.create({
+      email,
+      password: encryptedPassword,
+    });
 
     const accessToken = await this.generateAccessToken({
       email: userCreated.email,
