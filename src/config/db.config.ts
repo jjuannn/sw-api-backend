@@ -1,4 +1,5 @@
 import * as dotenv from 'dotenv';
+import { join } from 'path';
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
@@ -51,4 +52,7 @@ export const datasourceOptions: DataSourceOptions = (() => {
 export default new DataSource({
   ...datasourceOptions,
   migrations: ['./data/migrations/*.ts'],
+  entities: [
+    join(__dirname, '..', 'modules/**/*/repository/entity/*.entity.ts'),
+  ],
 });
