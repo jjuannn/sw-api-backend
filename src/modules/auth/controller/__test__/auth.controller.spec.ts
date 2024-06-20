@@ -122,7 +122,7 @@ describe('AuthController', () => {
       return request(app.getHttpServer())
         .post('/auth/login')
         .send(loginUserDto)
-        .expect(HttpStatus.OK)
+        .expect(HttpStatus.BAD_REQUEST)
         .then(({ body }) => {
           expect(body.message).toEqual('The given credentials are invalid');
         });

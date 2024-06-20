@@ -27,3 +27,9 @@ jobs:
 
       - name: Run Tests
         run: npm run test:coverage
+
+      - name: Report LCOV
+        uses: zgosalvez/github-actions-report-lcov@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          coverage-files: ./coverage/lcov.info
