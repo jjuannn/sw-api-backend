@@ -1,0 +1,23 @@
+import { Injectable, Inject } from '@nestjs/common';
+import { ICreateUserInput } from './interface/input/create-user.input.interface';
+import { IUserService } from './interface/user.service.interface';
+import { UserEntity } from '../repository/entity/user.entity';
+import { IUserRepository } from '../repository/interface/user.repository.interface';
+
+@Injectable()
+export class UserService implements IUserService {
+  constructor(
+    @Inject('USER_REPOSITORY') private readonly userRepository: IUserRepository,
+  ) {}
+
+  async create(createUserData: ICreateUserInput): Promise<UserEntity> {
+    return this.userRepository.create({
+      email: createUserData.email,
+      password: createUserData.password,
+    });
+  }
+
+  async getByEmail(email: string): Promise<UserEntity> {
+    return this.userRepository.getByEmail(email);
+  }
+}
