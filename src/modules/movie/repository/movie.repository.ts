@@ -16,6 +16,7 @@ export class MovieRepository implements IMovieRepository {
   async findAll(): Promise<MovieEntity[]> {
     return this.movieRepository.find({
       select: ['id', 'title', 'director', 'openingCrawl', 'releaseDate'],
+      order: { id: { direction: 'ASC' } },
     });
   }
 
