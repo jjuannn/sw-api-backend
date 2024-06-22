@@ -1,11 +1,10 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { CreateMovieDto } from '../controller/dto/create-movie.dto';
 import { UpdateMovieDto } from '../controller/dto/update-movie.dto';
-import { MovieRepository } from '../repository/movie.repository';
 import { MovieEntity } from '../repository/entity/movie.entity';
 import { IMovieService } from './interface/movie.service.interface';
 import { IMovieRepository } from '../repository/interface/movie.repository.interface';
-import { MovieNotFoundError } from './error/error.movie.service';
+import { MovieNotFoundError } from './error/movie.service.error';
 
 @Injectable()
 export class MovieService implements IMovieService {
