@@ -1,5 +1,7 @@
 # Star Wars API Backend
 
+- Star Wars API available on https://sw-api-backend.onrender.com
+
 ## Requisites
 
 - Node @18.12.0 or higher.
