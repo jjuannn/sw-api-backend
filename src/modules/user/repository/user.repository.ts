@@ -23,7 +23,7 @@ export class UserRepository implements IUserRepository {
   async getByEmail(email: string): Promise<UserEntity> {
     return this.userRepository.findOne({
       where: { email },
-      select: ['id', 'email', 'password'],
+      select: ['id', 'email', 'password', 'role'],
     });
   }
 }

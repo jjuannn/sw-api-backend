@@ -6,9 +6,14 @@ import { DataSource } from 'typeorm';
 import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
+import { MovieModule } from './modules/movie/movie.module';
+import { PassportModule } from '@nestjs/passport';
+import { JwtStrategy } from './modules/common/controller/jwt/jwt.strategy';
+import { CommonModule } from './modules/common/common.module';
 
 @Module({
   imports: [
+    PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
       global: true,
       secret: process.env.JWT_SECRET,
@@ -24,6 +29,8 @@ import { JwtModule } from '@nestjs/jwt';
     }),
     AuthModule,
     UserModule,
+    MovieModule,
+    CommonModule,
   ],
   controllers: [],
   providers: [],

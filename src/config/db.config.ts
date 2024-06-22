@@ -5,7 +5,7 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 dotenv.config();
 
-export enum ENVIRONMENT {
+enum ENVIRONMENT {
   PRODUCTION = 'production',
   DEVELOPMENT = 'development',
   AUTOMATED_TEST = 'automated_tests',
