@@ -44,6 +44,7 @@ export class MovieController {
 
   @Patch(':id')
   @UseGuards(RolesGuard([RolesType.ADMIN]))
+  @ApiBody({ type: UpdateMovieDto })
   async updateById(
     @Param('id') id: string,
     @Body() updateMovieDto: UpdateMovieDto,
