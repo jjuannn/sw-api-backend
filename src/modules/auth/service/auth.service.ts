@@ -7,10 +7,10 @@ import { EncryptService } from '../../encrypt/service/encrypt.service';
 import {
   InvalidCredentialsError,
   UserAlreadyExistsError,
-} from './error/auth.service.error';
-import { IRegisterUserOutput } from './interface/output/register-user.output.interface';
-import { ILoginUserOutput } from './interface/output/login-user.output.interface';
-import { IGenerateAccessTokenPayloadInput } from './interface/input/generate-access-token-payload.input.interface';
+} from './auth.service.error';
+import { IRegisterUserOutput } from './interface/register-user.output.interface';
+import { ILoginUserOutput } from './interface/login-user.output.interface';
+import { IGenerateAccessTokenPayloadInput } from './interface/generate-access-token-payload.input.interface';
 import { IAuthService } from './interface/auth.service.interface';
 
 @Injectable()

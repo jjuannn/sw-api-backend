@@ -4,11 +4,11 @@ import { UserService } from '../../../user/service/user.service';
 import { JwtService } from '@nestjs/jwt';
 import { EncryptService } from '../../../encrypt/service/encrypt.service';
 import { RegisterUserDto } from '../../controller/dto/register-user.dto';
-import { UserEntity } from '../../../user/repository/entity/user.entity';
+import { UserEntity } from '../../../user/repository/user.entity';
 import {
   InvalidCredentialsError,
   UserAlreadyExistsError,
-} from '../error/auth.service.error';
+} from '../auth.service.error';
 import { LoginUserDto } from '../../controller/dto/login-user.dto';
 
 describe('AuthService', () => {

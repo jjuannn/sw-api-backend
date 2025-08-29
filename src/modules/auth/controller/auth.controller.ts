@@ -3,8 +3,8 @@ import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { AuthService } from '../service/auth.service';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
-import { IRegisterUserOutput } from '../service/interface/output/register-user.output.interface';
-import { ILoginUserOutput } from '../service/interface/output/login-user.output.interface';
+import { IRegisterUserOutput } from '../service/interface/register-user.output.interface';
+import { ILoginUserOutput } from '../service/interface/login-user.output.interface';
 
 @ApiTags('Authentication')
 @Controller('auth')
