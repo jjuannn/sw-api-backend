@@ -28,7 +28,6 @@ jobs:
       - name: Run Tests
         run: npm run test
 
-      - name: Report LCOV
       - uses: hrishikesh-kadam/setup-lcov@v1
 
       - uses: kefasjw/lcov-pull-request-report@v1
