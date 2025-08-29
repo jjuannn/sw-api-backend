@@ -29,7 +29,9 @@ jobs:
         run: npm run test
 
       - name: Report LCOV
-        uses: zgosalvez/github-actions-report-lcov@v4
+      - uses: hrishikesh-kadam/setup-lcov@v1
+
+      - uses: kefasjw/lcov-pull-request-report@v1
         with:
+          lcov-file: coverage/lcov.info
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          coverage-files: ./coverage/lcov.info
