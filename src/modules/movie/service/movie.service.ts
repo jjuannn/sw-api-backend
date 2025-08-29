@@ -2,12 +2,11 @@ import { Injectable, Inject } from '@nestjs/common';
 import { CreateMovieDto } from '../controller/dto/create-movie.dto';
 import { UpdateMovieDto } from '../controller/dto/update-movie.dto';
 import { MovieEntity } from '../repository/movie.entity';
-import { IMovieService } from './interface/movie.service.interface';
 import { IMovieRepository } from '../repository/interface/movie.repository.interface';
 import { MovieNotFoundError } from './movie.service.error';
 
 @Injectable()
-export class MovieService implements IMovieService {
+export class MovieService {
   constructor(
     @Inject('MOVIE_REPOSITORY')
     private readonly movieRepository: IMovieRepository,

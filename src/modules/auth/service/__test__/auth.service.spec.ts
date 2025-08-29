@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AuthService } from '../auth.service';
 import { UserService } from '../../../user/service/user.service';
 import { JwtService } from '@nestjs/jwt';
-import { EncryptService } from '../../../encrypt/service/encrypt.service';
+import { EncryptService } from '../../../common/service/encrypt.service';
 import { RegisterUserDto } from '../../controller/dto/register-user.dto';
 import { UserEntity } from '../../../user/repository/user.entity';
 import {
