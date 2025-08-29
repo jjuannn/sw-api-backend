@@ -52,7 +52,5 @@ export const datasourceOptions: DataSourceOptions = (() => {
 export default new DataSource({
   ...datasourceOptions,
   migrations: ['./data/migrations/*.ts'],
-  entities: [
-    join(__dirname, '..', 'modules/**/*/repository/entity/*.entity.ts'),
-  ],
+  entities: [join(__dirname, '..', 'modules/**/*/repository/*.entity.ts')],
 });

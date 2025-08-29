@@ -19,8 +19,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: NPM or Yarn install with caching
-        uses: bahmutov/npm-install@v1.6.0
+      - name: Install NPM dependencies
+        run: npm ci
 
       - name: Build
         run: npm run build
@@ -28,8 +28,11 @@ jobs:
       - name: Run Tests
         run: npm run test
 
-      - name: Report LCOV
-        uses: zgosalvez/github-actions-report-lcov@v1
+      - uses: hrishikesh-kadam/setup-lcov@v1
+
+      - uses: kefasjw/lcov-pull-request-report@v1
         with:
+          lcov-file: coverage/lcov.info
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          coverage-files: ./coverage/lcov.info
+          changed-files-minimum-coverage: 85
+          all-files-minimum-coverage: 85

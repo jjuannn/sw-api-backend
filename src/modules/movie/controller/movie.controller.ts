@@ -13,7 +13,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { MovieService } from '../service/movie.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
-import { MovieEntity } from '../repository/entity/movie.entity';
+import { MovieEntity } from '../repository/movie.entity';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 import { RolesGuard } from '../../common/controller/roles/roles.guard';
 import { RolesType } from '../../common/controller/roles/enum/roles.enum';
