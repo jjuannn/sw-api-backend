@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserService } from '../user.service';
 import { IUserRepository } from '../../repository/interface/user.repository.interface';
-import { ICreateUserInput } from '../interface/input/create-user.input.interface';
-import { UserEntity } from '../../repository/entity/user.entity';
+import { ICreateUserInput } from '../interface/create-user.input.interface';
+import { UserEntity } from '../../repository/user.entity';
 import { UserRole } from '../../repository/enum/user.role.enum';
 
 describe('UserService', () => {
