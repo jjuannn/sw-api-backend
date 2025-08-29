@@ -1,6 +1,6 @@
 import { CreateMovieDto } from '../../controller/dto/create-movie.dto';
 import { UpdateMovieDto } from '../../controller/dto/update-movie.dto';
-import { MovieEntity } from '../../repository/entity/movie.entity';
+import { MovieEntity } from '../../repository/movie.entity';
 
 export interface IMovieService {
   create(createMovieDto: CreateMovieDto): Promise<MovieEntity>;

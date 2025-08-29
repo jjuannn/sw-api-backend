@@ -1,6 +1,5 @@
+import { BaseEntity } from '../../common/repository/base.entity';
 import { Column, Entity } from 'typeorm';
-
-import { BaseEntity } from '../../../common/repository/entity/base.entity';
 
 @Entity('movie')
 export class MovieEntity extends BaseEntity {

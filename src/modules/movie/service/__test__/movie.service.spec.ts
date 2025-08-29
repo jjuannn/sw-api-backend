@@ -4,8 +4,8 @@ import { MovieService } from '../movie.service';
 import { IMovieRepository } from '../../repository/interface/movie.repository.interface';
 import { MovieRepository } from '../../repository/movie.repository';
 import { CreateMovieDto } from '../../controller/dto/create-movie.dto';
-import { MovieEntity } from '../../repository/entity/movie.entity';
-import { MovieNotFoundError } from '../error/movie.service.error';
+import { MovieEntity } from '../../repository/movie.entity';
+import { MovieNotFoundError } from '../movie.service.error';
 import { UpdateMovieDto } from '../../controller/dto/update-movie.dto';
 
 describe('MovieService', () => {

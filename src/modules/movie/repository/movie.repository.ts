@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { MovieEntity } from './entity/movie.entity';
-import { ICreateMovieInput } from './interface/input/create-movie.input.interface';
-import { IUpdateMovieInput } from './interface/input/update-movie.input.interface';
+import { ICreateMovieInput } from './interface/create-movie.input.interface';
+import { IUpdateMovieInput } from './interface/update-movie.input.interface';
 import { IMovieRepository } from './interface/movie.repository.interface';
+import { MovieEntity } from './movie.entity';
 
 @Injectable()
 export class MovieRepository implements IMovieRepository {

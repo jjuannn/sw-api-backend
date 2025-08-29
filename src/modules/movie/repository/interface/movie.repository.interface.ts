@@ -1,6 +1,6 @@
-import { MovieEntity } from '../entity/movie.entity';
-import { ICreateMovieInput } from './input/create-movie.input.interface';
-import { IUpdateMovieInput } from './input/update-movie.input.interface';
+import { MovieEntity } from '../movie.entity';
+import { ICreateMovieInput } from './create-movie.input.interface';
+import { IUpdateMovieInput } from './update-movie.input.interface';
 
 export interface IMovieRepository {
   findAll(): Promise<MovieEntity[]>;
