@@ -3,7 +3,7 @@ import { RegisterUserDto } from '../controller/dto/register-user.dto';
 import { UserService } from '../../user/service/user.service';
 import { JwtService } from '@nestjs/jwt';
 import { LoginUserDto } from '../controller/dto/login-user.dto';
-import { EncryptService } from '../../encrypt/service/encrypt.service';
+import { EncryptService } from '../../common/service/encrypt.service';
 import {
   InvalidCredentialsError,
   UserAlreadyExistsError,
@@ -11,10 +11,9 @@ import {
 import { IRegisterUserOutput } from './interface/register-user.output.interface';
 import { ILoginUserOutput } from './interface/login-user.output.interface';
 import { IGenerateAccessTokenPayloadInput } from './interface/generate-access-token-payload.input.interface';
-import { IAuthService } from './interface/auth.service.interface';
 
 @Injectable()
-export class AuthService implements IAuthService {
+export class AuthService {
   constructor(
     private readonly userService: UserService,
     private readonly jwtService: JwtService,

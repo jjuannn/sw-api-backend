@@ -1,11 +1,10 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { ICreateUserInput } from './interface/create-user.input.interface';
-import { IUserService } from './interface/user.service.interface';
 import { UserEntity } from '../repository/user.entity';
 import { IUserRepository } from '../repository/interface/user.repository.interface';
 
 @Injectable()
-export class UserService implements IUserService {
+export class UserService {
   constructor(
     @Inject('USER_REPOSITORY') private readonly userRepository: IUserRepository,
   ) {}
