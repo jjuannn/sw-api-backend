@@ -1,6 +1,6 @@
 import { HttpStatus, INestApplication, ValidationPipe } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import * as bcrypt from 'bcrypt';
+import * as bcryptjs from 'bcryptjs';
 import * as request from 'supertest';
 
 import { AppModule } from '../../../../app.module';
@@ -73,7 +73,7 @@ describe('AuthController', () => {
         .spyOn(JwtService.prototype, 'signAsync')
         .mockResolvedValue(mockResolvedToken);
 
-      jest.spyOn(bcrypt, 'compare').mockResolvedValue(true as never);
+      jest.spyOn(bcryptjs, 'compare').mockResolvedValue(true as never);
 
       const loginUserDto: LoginUserDto = {
         email: 'existing@example.com',
@@ -95,7 +95,7 @@ describe('AuthController', () => {
         .spyOn(JwtService.prototype, 'signAsync')
         .mockResolvedValue(mockResolvedToken);
 
-      jest.spyOn(bcrypt, 'compare').mockResolvedValue(true as never);
+      jest.spyOn(bcryptjs, 'compare').mockResolvedValue(true as never);
 
       const loginUserDto: LoginUserDto = {
         email: 'non-existing@example.com',
@@ -112,7 +112,7 @@ describe('AuthController', () => {
     });
 
     it('Should return an error if trying to login with an incorrect password', async () => {
-      jest.spyOn(bcrypt, 'compare').mockResolvedValue(false as never);
+      jest.spyOn(bcryptjs, 'compare').mockResolvedValue(false as never);
 
       const loginUserDto: LoginUserDto = {
         email: 'existing@example.com',
