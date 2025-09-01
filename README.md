@@ -14,16 +14,16 @@
 
 ## Environment Variables
 
-| Variable      | Description                                                      |
-| ------------- | ---------------------------------------------------------------- |
-| `PORT`        | Nest application port. Defaults to '3000' if not specified       |
-| `NODE_ENV`    | Current environment. Use 'development' for local                 |
-| `DB_HOST`     | Postgres database host. Use 'localhost' for local                |
-| `DB_PORT`     | Postgres database port. Use '5432' for local                     |
-| `DB_USERNAME` | Postgres database user. Use 'postgres' for local                 |
-| `DB_PASSWORD` | Postgres database password. Use 'example' for local              |
-| `DB_NAME`     | Postgres database name. Use 'sw_api' for local                   |
-| `JWT_SECRET`  | JWT secret to sign and check tokens. Can be any string or Buffer |
+| Variable      | Description                                                                                           |
+| ------------- | ----------------------------------------------------------------------------------------------------- |
+| `PORT`        | Nest application port. Defaults to '3000' if not specified                                            |
+| `NODE_ENV`    | Current environment. Use 'development' for local                                                      |
+| `DB_HOST`     | Postgres database host. Use 'localhost' for local or 'host.docker.internal' if running docker-compose |
+| `DB_PORT`     | Postgres database port. Use '5432' for local                                                          |
+| `DB_USERNAME` | Postgres database user. Use 'postgres' for local                                                      |
+| `DB_PASSWORD` | Postgres database password. Use 'example' for local                                                   |
+| `DB_NAME`     | Postgres database name. Use 'sw_api' for local                                                        |
+| `JWT_SECRET`  | JWT secret to sign and check tokens. Can be any string or Buffer                                      |
 
 ## Run
 
