@@ -21,36 +21,48 @@ const baseOptions: DataSourceOptions = {
   namingStrategy: new SnakeNamingStrategy(),
 };
 
-const dbConfig = {
-  [ENVIRONMENT.PRODUCTION]: {
-    ...baseOptions,
-    synchronize: false,
-  },
-  [ENVIRONMENT.DEVELOPMENT]: {
-    ...baseOptions,
-    synchronize: true,
-  },
-  [ENVIRONMENT.AUTOMATED_TEST]: {
-    type: 'better-sqlite3',
-    database: `./data/database/tests.${Math.random()}.db`,
-    synchronize: true,
-    dropSchema: false,
-    namingStrategy: new SnakeNamingStrategy(),
-  },
-};
+export function createDatasourceOptions(): DataSourceOptions {
+  const dbConfig = {
+    [ENVIRONMENT.PRODUCTION]: {
+      ...baseOptions,
+      synchronize: false,
+    },
+    [ENVIRONMENT.DEVELOPMENT]: {
+      ...baseOptions,
+      synchronize: true,
+    },
+    [ENVIRONMENT.AUTOMATED_TEST]: {
+      type: 'better-sqlite3',
+      database: `./data/database/tests.${Math.random()}.db`,
+      synchronize: true,
+      dropSchema: false,
+      namingStrategy: new SnakeNamingStrategy(),
+    },
+  };
 
-export const datasourceOptions: DataSourceOptions = (() => {
   const config = dbConfig[process.env.NODE_ENV];
 
   if (!config) {
     throw new Error('Invalid environment');
   }
 
-  return config;
-})();
+  return {
+    ...config,
+    migrations: [join(__dirname, '../migrations/*.{js,ts}')],
+    entities: [join(__dirname, '..', '**/*/repository/*.entity.{js,ts}')],
+  };
+}
 
-export default new DataSource({
-  ...datasourceOptions,
-  migrations: ['./data/migrations/*.ts'],
-  entities: [join(__dirname, '..', 'modules/**/*/repository/*.entity.ts')],
-});
+export const datasourceOptions = (() => {
+  const baseConfig: Partial<DataSourceOptions> = {
+    entities: [join(__dirname, '../**/*.entity.{js,ts}')],
+    migrations: [join(__dirname, '../migrations/*.js')],
+  };
+
+  return {
+    ...baseConfig,
+    ...createDatasourceOptions(),
+  };
+})() as DataSourceOptions;
+
+export default new DataSource(datasourceOptions);
