@@ -10,6 +10,7 @@ import {
   UserAlreadyExistsError,
 } from '../auth.service.error';
 import { LoginUserDto } from '../../controller/dto/login-user.dto';
+import { ConfigService } from '@nestjs/config';
 
 describe('AuthService', () => {
   let authService: AuthService;
@@ -20,6 +21,7 @@ describe('AuthService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
+        ConfigService,
         AuthService,
         {
           provide: UserService,
