@@ -1,27 +1,28 @@
+import { ConfigService } from '@nestjs/config';
 import * as dotenv from 'dotenv';
 import { join } from 'path';
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
+import { ENVIRONMENT, environmentVariablesConfig } from './env.config';
 
 dotenv.config();
 
-enum ENVIRONMENT {
-  PRODUCTION = 'production',
-  DEVELOPMENT = 'development',
-  AUTOMATED_TEST = 'automated_tests',
-}
+export function createDatasourceOptions(
+  configService: ConfigService,
+): DataSourceOptions {
+  const environment = configService.get<ENVIRONMENT>('app.nodeEnv')!;
 
-const baseOptions: DataSourceOptions = {
-  type: 'postgres',
-  host: process.env.DB_HOST,
-  port: +process.env.DB_PORT,
-  username: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  namingStrategy: new SnakeNamingStrategy(),
-};
+  const baseOptions: Partial<DataSourceOptions> = {
+    type: 'postgres',
+    host: configService.get<string>('database.host'),
+    port: configService.get<number>('database.port'),
+    username: configService.get<string>('database.username'),
+    password: configService.get<string>('database.password'),
+    database: configService.get<string>('database.database'),
+    schema: configService.get<string>('database.schema'),
+    namingStrategy: new SnakeNamingStrategy(),
+  };
 
-export function createDatasourceOptions(): DataSourceOptions {
   const dbConfig = {
     [ENVIRONMENT.PRODUCTION]: {
       ...baseOptions,
@@ -38,9 +39,9 @@ export function createDatasourceOptions(): DataSourceOptions {
       dropSchema: false,
       namingStrategy: new SnakeNamingStrategy(),
     },
-  };
+  } as Record<ENVIRONMENT, DataSourceOptions>;
 
-  const config = dbConfig[process.env.NODE_ENV];
+  const config = dbConfig[environment];
 
   if (!config) {
     throw new Error('Invalid environment');
@@ -53,7 +54,14 @@ export function createDatasourceOptions(): DataSourceOptions {
   };
 }
 
+const createConfigService = (): ConfigService => {
+  const config = environmentVariablesConfig();
+  const configService = new ConfigService(config);
+  return configService;
+};
+
 export const datasourceOptions = (() => {
+  const configService = createConfigService();
   const baseConfig: Partial<DataSourceOptions> = {
     entities: [join(__dirname, '../**/*.entity.{js,ts}')],
     migrations: [join(__dirname, '../migrations/*.js')],
@@ -61,7 +69,7 @@ export const datasourceOptions = (() => {
 
   return {
     ...baseConfig,
-    ...createDatasourceOptions(),
+    ...createDatasourceOptions(configService),
   };
 })() as DataSourceOptions;
 
