@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { EncryptService } from '../encrypt.service';
 import * as bcryptjs from 'bcryptjs';
+import { ConfigService } from '@nestjs/config';
 
 jest.mock('bcryptjs', () => ({
   ...jest.requireActual('bcryptjs'),
@@ -13,7 +14,7 @@ describe('Encrypt Service', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [EncryptService],
+      providers: [ConfigService, EncryptService],
     }).compile();
 
     encryptService = module.get<EncryptService>(EncryptService);

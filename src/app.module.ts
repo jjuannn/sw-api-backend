@@ -9,9 +9,17 @@ import { JwtModule } from '@nestjs/jwt';
 import { MovieModule } from './modules/movie/movie.module';
 import { PassportModule } from '@nestjs/passport';
 import { CommonModule } from './modules/common/common.module';
+import { ConfigModule } from '@nestjs/config';
+import { environmentVariablesConfig } from './config/env.config';
+import { environmentVariablesValidation } from './config/env.validate';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      load: [environmentVariablesConfig],
+      validationSchema: environmentVariablesValidation,
+      isGlobal: true,
+    }),
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
       global: true,

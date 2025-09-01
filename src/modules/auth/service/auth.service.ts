@@ -11,6 +11,7 @@ import {
 import { IRegisterUserOutput } from './interface/register-user.output.interface';
 import { ILoginUserOutput } from './interface/login-user.output.interface';
 import { IGenerateAccessTokenPayloadInput } from './interface/generate-access-token-payload.input.interface';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
@@ -18,6 +19,7 @@ export class AuthService {
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
     private readonly encryptService: EncryptService,
+    private readonly configService: ConfigService,
   ) {}
 
   async register(
@@ -74,7 +76,7 @@ export class AuthService {
     payload: IGenerateAccessTokenPayloadInput,
   ): Promise<string> {
     return this.jwtService.signAsync(payload, {
-      secret: process.env.JWT_SECRET,
+      secret: this.configService.get<string>('jwt.secret'),
       expiresIn: '1h',
     });
   }
