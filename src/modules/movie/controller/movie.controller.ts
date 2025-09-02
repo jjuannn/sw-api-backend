@@ -39,7 +39,7 @@ export class MovieController {
 
   @Get(':id')
   async findById(@Param('id') id: string): Promise<MovieEntity> {
-    return await this.movieService.findById(+id);
+    return await this.movieService.findByIdOrThrow(+id);
   }
 
   @Patch(':id')
