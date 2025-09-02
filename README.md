@@ -1,6 +1,17 @@
 # Star Wars API Backend
 
-- Star Wars API available on https://sw-api-backend.onrender.com
+- Star Wars API available on https://sw-api-backend-deploy.onrender.com
+
+Note from Render's documentation:
+
+```
+Render spins down a Free web service that goes 15 minutes without receiving inbound traffic.
+Render spins the service back up whenever it next receives a request to process.
+
+Spinning up a service takes up to a minute, which causes a noticeable delay for incoming requests until
+the service is back up and running.
+For example, a browser page load will hang temporarily.
+```
 
 ## Requisites
 
