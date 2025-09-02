@@ -27,6 +27,7 @@ export function createDatasourceOptions(
     [ENVIRONMENT.PRODUCTION]: {
       ...baseOptions,
       synchronize: false,
+      ssl: true,
     },
     [ENVIRONMENT.DEVELOPMENT]: {
       ...baseOptions,
