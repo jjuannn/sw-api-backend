@@ -2,7 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { MovieService } from '../movie.service';
 import { IMovieRepository } from '../../repository/interface/movie.repository.interface';
-import { MovieRepository } from '../../repository/movie.repository';
 import { CreateMovieDto } from '../../controller/dto/create-movie.dto';
 import { MovieEntity } from '../../repository/movie.entity';
 import { MovieNotFoundError } from '../movie.service.error';
@@ -88,7 +87,7 @@ describe('MovieService', () => {
         .spyOn(movieRepository, 'findById')
         .mockResolvedValue(storedMovieRepositoryResponse);
 
-      const movie = await movieService.findById(1);
+      const movie = await movieService.findByIdOrThrow(1);
 
       expect(movieRepository.findById).toHaveBeenCalledWith(1);
       expect(movie).toEqual(storedMovieRepositoryResponse);
@@ -98,7 +97,7 @@ describe('MovieService', () => {
       jest.spyOn(movieRepository, 'findById').mockResolvedValue(undefined);
 
       try {
-        await movieService.findById(1);
+        await movieService.findByIdOrThrow(1);
       } catch (err) {
         expect(err).toBeInstanceOf(MovieNotFoundError);
         expect(movieRepository.findById).toHaveBeenCalledWith(1);
@@ -108,6 +107,12 @@ describe('MovieService', () => {
 
   describe('Update by ID', () => {
     it('Should update a movie correctly', async () => {
+      jest
+        .spyOn(movieRepository, 'findById')
+        .mockImplementationOnce(() =>
+          Promise.resolve(storedMovieRepositoryResponse),
+        );
+
       const updateMovieDto: UpdateMovieDto = {
         title: 'Star Wars II',
         openingCrawl: '100 years ago...',
@@ -126,10 +131,44 @@ describe('MovieService', () => {
         updateMovieDto,
       );
     });
+
+    it('Should throw an error if trying to update a non existing movie', async () => {
+      const updateMovieDto: UpdateMovieDto = {
+        title: 'Star Wars II',
+        openingCrawl: '100 years ago...',
+        director: 'George Lucas',
+      };
+
+      try {
+        await movieService.updateById(1, updateMovieDto);
+      } catch (err) {
+        expect(err).toBeInstanceOf(MovieNotFoundError);
+        expect(movieRepository.updateById).toHaveBeenCalledTimes(0);
+      }
+    });
   });
 
   describe('Delete by ID', () => {
+    it('Should throw an error if trying to delete a non-existing movie', async () => {
+      jest
+        .spyOn(movieRepository, 'deleteById')
+        .mockImplementationOnce(() => Promise.resolve());
+
+      try {
+        await movieService.deleteById(1);
+      } catch (err) {
+        expect(err).toBeInstanceOf(MovieNotFoundError);
+        expect(movieRepository.deleteById).toHaveBeenCalledTimes(0);
+      }
+    });
+
     it('Should delete a movie with the given ID', async () => {
+      jest
+        .spyOn(movieRepository, 'findById')
+        .mockImplementationOnce(() =>
+          Promise.resolve(storedMovieRepositoryResponse),
+        );
+
       jest
         .spyOn(movieRepository, 'deleteById')
         .mockImplementationOnce(() => Promise.resolve());
