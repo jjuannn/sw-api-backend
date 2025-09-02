@@ -27,7 +27,7 @@ export class MovieService {
     return this.movieRepository.findAll();
   }
 
-  async findById(id: number): Promise<MovieEntity> {
+  async findByIdOrThrow(id: number): Promise<MovieEntity> {
     const movie = await this.movieRepository.findById(id);
 
     if (!movie) {
@@ -41,6 +41,8 @@ export class MovieService {
     id: number,
     updateMovieDto: UpdateMovieDto,
   ): Promise<MovieEntity> {
+    await this.findByIdOrThrow(id);
+
     const { title, director, openingCrawl, releaseDate } = updateMovieDto;
 
     return this.movieRepository.updateById(id, {
@@ -52,6 +54,7 @@ export class MovieService {
   }
 
   async deleteById(id: number): Promise<void> {
+    await this.findByIdOrThrow(id);
     return this.movieRepository.deleteById(id);
   }
 }
